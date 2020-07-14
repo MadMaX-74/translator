@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Untitled</title>
+  <meta charset="utf-8">
+  <style type="text/css">
+  </style>
+
+<script>
+    window.addEventListener("DOMContentLoaded", function() {
+        let btn = document.querySelector("#btn"),
+        txt = document.querySelector("#one"),
+        transl = document.querySelector("#two") ;
+        btn.addEventListener("click", function() {
+    let request = new XMLHttpRequest();
+    let text = encodeURIComponent(txt.value);
+    let key = "trnsl.1.1.20190704T212630Z.c409bb9604ae7251.df09dbd89372575b02298ed0970f8e45c749648b";
+    let url = "https://translate.yandex.net/api/v1.5/tr.json/translate?key="+key+"&text="+text+"&hint=en,ru&lang=en-ru&format=plain&options="
+    request.open('GET', url, true);
+    request.onload = function() {
+    if (request.status >= 200 && request.status < 400) {
+        let data = JSON.parse(request.responseText);
+        transl.value = data.text;
+    }
+    };
+    request.send();
+        });
+    });
+</script>
+
+</head>
+
+<body>
+<textarea id="one" name=""></textarea>
+<input id="btn" name="" type="button" value="translate">
+<textarea id="two" name=""></textarea>
+
+
+
+</body>
+</html>
